@@ -117,6 +117,13 @@ export abstract class DeviceDelegate {
   }
 
   /**
+   * Returns all registered device models.
+   */
+  static getRegisteredModels(): string[] {
+    return Array.from(DeviceDelegate.delegates.keys());
+  }
+
+  /**
    * Holds all accessories for this device.
    */
   protected readonly accessories: Map<AccessoryId, Accessory> = new Map();
