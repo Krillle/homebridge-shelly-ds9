@@ -9,6 +9,7 @@ import {
   PowerMeterAbility,
   SwitchAbility,
   LightAbility,
+  ColorLightAbility,
 } from '../abilities';
 import { Accessory, AccessoryId } from '../accessory';
 import { DeviceLogger } from '../utils/device-logger';
@@ -60,6 +61,21 @@ export interface AddLightOptions {
    * Whether the device has a single light.
    */
   single: boolean;
+}
+
+export interface AddColorLightOptions {
+  /**
+   * Whether the accessory should be active.
+   */
+  active: boolean;
+  /**
+   * Whether the device has a single light.
+   */
+  single: boolean;
+  /**
+   * Whether the light is RGB or RGBW.
+   */
+  mode: 'rgb' | 'rgbw';
 }
 
 /**
@@ -260,6 +276,30 @@ export abstract class DeviceDelegate {
       id,
       nameSuffix,
       new LightAbility(light),
+    ).setActive(lightOpts.exclude !== true && o.active !== false);
+  }
+
+  /**
+   * Creates an accessory for a color light component.
+   * @param component - The rgb/rgbw component to use.
+   * @param opts - Options for the color light.
+   */
+  protected addColorLight(component: ComponentLike, opts?: Partial<AddColorLightOptions>): Accessory {
+    const o = opts ?? {};
+
+    // get the config options for this light component
+    const lightOpts = this.getComponentOptions<LightOptions>(component) ?? {};
+
+    const componentId = (component as { id?: number }).id ?? 0;
+    const id = o.single === true ? 'light' : `light-${componentId}`;
+    const nameSuffix = o.single === true ? null : `Light ${componentId + 1}`;
+
+    const colorComponent = component as unknown as Parameters<typeof ColorLightAbility>[0];
+
+    return this.createAccessory(
+      id,
+      nameSuffix,
+      new ColorLightAbility(colorComponent, o.mode ?? 'rgb'),
     ).setActive(lightOpts.exclude !== true && o.active !== false);
   }
 

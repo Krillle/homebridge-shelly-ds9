@@ -2,6 +2,7 @@ export * from './base';
 
 export * from './accessory-information';
 export * from './cover';
+export * from './color-light';
 export * from './light';
 export * from './outlet';
 export * from './power-meter';
