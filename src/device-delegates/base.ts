@@ -294,7 +294,7 @@ export abstract class DeviceDelegate {
     const id = o.single === true ? 'light' : `light-${componentId}`;
     const nameSuffix = o.single === true ? null : `Light ${componentId + 1}`;
 
-    const colorComponent = component as unknown as Parameters<typeof ColorLightAbility>[0];
+    const colorComponent = component as unknown as ConstructorParameters<typeof ColorLightAbility>[0];
 
     return this.createAccessory(
       id,

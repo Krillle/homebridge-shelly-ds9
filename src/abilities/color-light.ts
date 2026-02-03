@@ -154,11 +154,10 @@ export class ColorLightAbility extends Ability {
   }
 
   detach() {
-    this.component
-      .off('change:output', this.outputChangeHandler, this)
-      .off('change:brightness', this.brightnessChangeHandler, this)
-      .off('change:rgb', this.rgbChangeHandler, this)
-      .off('change:white', this.whiteChangeHandler, this);
+    this.component.off('change:output', this.outputChangeHandler, this);
+    this.component.off('change:brightness', this.brightnessChangeHandler, this);
+    this.component.off('change:rgb', this.rgbChangeHandler, this);
+    this.component.off('change:white', this.whiteChangeHandler, this);
   }
 
   /**
