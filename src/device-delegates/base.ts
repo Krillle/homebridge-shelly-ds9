@@ -95,7 +95,7 @@ export abstract class DeviceDelegate {
    */
   static registerDelegate(delegate: DeviceDelegateClass, ...deviceClasses: DeviceClass[]) {
     for (const deviceCls of deviceClasses) {
-      const mdl = deviceCls.model.toUpperCase();
+      const mdl = deviceCls.model.trim().toUpperCase();
 
       // make sure it's not already registered
       if (DeviceDelegate.delegates.has(mdl)) {
@@ -113,7 +113,7 @@ export abstract class DeviceDelegate {
    */
   static getDelegate(deviceClsOrModel: DeviceClass | string): DeviceDelegateClass | undefined {
     const mdl = typeof deviceClsOrModel === 'string' ? deviceClsOrModel : deviceClsOrModel.model;
-    return DeviceDelegate.delegates.get(mdl.toUpperCase());
+    return DeviceDelegate.delegates.get(mdl.trim().toUpperCase());
   }
 
   /**
