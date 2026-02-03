@@ -162,6 +162,7 @@ export class ShellyPlatform implements DynamicPlatformPlugin {
     config: PlatformConfig,
     readonly api: API,
   ) {
+    this.log.warn(`ShellyDS9 module path: ${__filename}`);
     // get the platform options
     this.options = new PlatformOptions(config);
 
