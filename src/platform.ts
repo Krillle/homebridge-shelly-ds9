@@ -426,7 +426,7 @@ export class ShellyPlatform implements DynamicPlatformPlugin {
     const normalized = model.trim().toUpperCase();
     const codes = Array.from(model).map(c => c.charCodeAt(0));
     this.log.warn(`[${deviceId}] Unknown device of model "${model}" discovered.`);
-    this.log.debug(`[${deviceId}] Model debug: raw="${model}" len=${model.length} codes=${JSON.stringify(codes)} normalized="${normalized}"`);
+    this.log.warn(`[${deviceId}] Model debug: raw="${model}" len=${model.length} codes=${JSON.stringify(codes)} normalized="${normalized}"`);
   }
 
   /**
